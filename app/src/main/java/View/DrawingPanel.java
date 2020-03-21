@@ -1,54 +1,90 @@
 package View;
 
+import Drawing.AbstractDrawing;
+import Drawing.CircleDrawing;
+import Drawing.LineDrawing;
+import Drawing.RectangleDrawing;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Line2D;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
-public class DrawingPanel extends JPanel {
+public class DrawingPanel extends JPanel implements MouseListener {
+    private ArrayList<AbstractDrawing> onScreen = new ArrayList<>();
     public DrawingPanel(){
         setBackground(Color.lightGray);
+        addMouseListener(this);
     }
     public int mode = 0;
+    public Color color = Color.BLACK;
 
     public void paint(Graphics g) {
-        g.setColor(Color.RED);
         Graphics2D g2 = (Graphics2D)g;
-        System.out.println(mode);
-        Shape obj = null;
-        switch (mode){
-            case 0:
-                obj = new Line2D.Double(3, 3, 303, 303);
-                break;
-            case 1:
-                obj = new Rectangle(3, 3, 100, 100);
-                break;
-            case 2:
-                obj = new Ellipse2D.Double(100, 100, 100, 100);
-                break;
-            default:
-                break;
+        for(AbstractDrawing obj : onScreen){
+            g.setColor(obj.borderColor);
+            g2.draw(obj.getShapeNow());
         }
-        //Shape roundRect = new RoundRectangle2D.Double(20, 20, 250, 250, 5, 25);
-        g2.draw(obj);
+
     }
+
     public void drawLine(){
         mode = 0;
+        onScreen.add(new LineDrawing(50, 3, 100, 100));
         repaint();
     }
+
     public void drawRectangle(){
         mode = 1;
-        System.out.println(mode);
+        onScreen.add(new RectangleDrawing(3, 3, 100, 100));
         repaint();
     }
 
     public void drawCircle(){
         mode = 2;
+        onScreen.add(new CircleDrawing(100, 100, 100));
         repaint();
     }
 
 
     public void drawEllipse(){
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        for (int i = 0; i < onScreen.size(); i++) {
+            AbstractDrawing drawing = onScreen.get(i);
+            if (drawing.getShapeNow().contains(e.getPoint())) {
+                drawing.borderColor = Color.red;
+            }
+        }
+        repaint();
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        for (int i = 0; i < onScreen.size(); i++) {
+            AbstractDrawing drawing = onScreen.get(i);
+            if (drawing.getShapeNow().contains(e.getPoint())) {
+                drawing.borderColor = Color.black;
+            }
+        }
+        repaint();
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
 
     }
 }
