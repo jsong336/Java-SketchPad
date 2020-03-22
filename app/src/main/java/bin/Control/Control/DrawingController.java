@@ -19,7 +19,10 @@ public class DrawingController {
                 drawingPanel.drawRectangle();
                 break;
             case "Ellipse":
-                drawingPanel.drawCircle();
+                drawingPanel.drawEllipse();
+                break;
+            case "Circle":
+                drawingPanel.drawCircle();;
                 break;
             case "Polygon":
                 drawingPanel.drawPolygon();

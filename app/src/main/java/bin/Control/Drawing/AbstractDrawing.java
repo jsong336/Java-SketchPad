@@ -28,6 +28,10 @@ public abstract class AbstractDrawing {
             return new CircleDrawing((CircleDrawing) copy);
         }
 
+        if(copy instanceof EllipseDrawing){
+            return new EllipseDrawing((EllipseDrawing) copy);
+        }
+
         if(copy instanceof LineDrawing){
             return new LineDrawing((LineDrawing) copy);
         }
@@ -43,7 +47,6 @@ public abstract class AbstractDrawing {
         if(copy instanceof FreeHandDrawing){
             return new FreeHandDrawing((FreeHandDrawing) copy);
         }
-
         return null;
     }
 

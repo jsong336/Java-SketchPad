@@ -55,6 +55,9 @@ public class MainFrame extends JFrame{
         MenuItem drawEllipseItem = new MenuItem("Ellipse");
         drawEllipseItem.setActionCommand("Draw-Ellipse");
 
+        MenuItem drawCircleItem = new MenuItem("Circle");
+        drawCircleItem.setActionCommand("Draw-Circle");
+
         MenuItem drawPolygon = new MenuItem("Polygon");
         drawPolygon.setActionCommand("Draw-Polygon");
 
@@ -71,6 +74,7 @@ public class MainFrame extends JFrame{
         drawItem.addActionListener(menuController);
         drawLineItem.addActionListener(menuController);
         drawRectangleItem.addActionListener(menuController);
+        drawCircleItem.addActionListener(menuController);
         drawEllipseItem.addActionListener(menuController);
         drawPolygon.addActionListener(menuController);
 
@@ -88,6 +92,7 @@ public class MainFrame extends JFrame{
         drawMenu.add(drawLineItem);
         drawMenu.add(drawRectangleItem);
         drawMenu.add(drawEllipseItem);
+        drawMenu.add(drawCircleItem);
         drawMenu.add(drawPolygon);
 
         //add menu to menubar

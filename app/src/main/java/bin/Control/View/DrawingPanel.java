@@ -42,7 +42,10 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
         repaint();
     }
 
-    public void drawEllipse(){}
+    public void drawEllipse(){
+        onScreen.add(new EllipseDrawing(Const.Drawing.DEFAULTS_POS_X, Const.Drawing.DEFAULTS_POS_Y, Const.Drawing.DEFAULTS_RADIUS+5, Const.Drawing.DEFAULTS_RADIUS - 5));
+        repaint();
+    }
 
     public void drawPolygon(){
         try{
