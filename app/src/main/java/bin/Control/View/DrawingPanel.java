@@ -53,12 +53,29 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {}
+    public void mouseClicked(MouseEvent e) {
+        if(e.getButton()!=1){
+            // display menu
+            AbstractDrawing drawing = null;
+            for (AbstractDrawing cur : onScreen) {
+                if (cur.getShapeNow().contains(e.getPoint())) {
+                    drawing = cur;
+                }
+            }
+            JPopupMenu popupMenu;
+            if(drawing == null){
+                popupMenu = new PopupMenu(e);
+            }
+            else{
+                popupMenu = new PopupMenu(drawing);
+            }
+            popupMenu.show(e.getComponent(), e.getX(), e.getY());
+        }
+    }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        for (int i = 0; i < onScreen.size(); i++) {
-            AbstractDrawing drawing = onScreen.get(i);
+        for (AbstractDrawing drawing : onScreen) {
             if (drawing.getShapeNow().contains(e.getPoint())) {
                 drawing.selectThis();
             }
@@ -81,7 +98,6 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
         }
         repaint();
     }
-
     @Override
     public void mouseMoved(MouseEvent e) {}
     @Override

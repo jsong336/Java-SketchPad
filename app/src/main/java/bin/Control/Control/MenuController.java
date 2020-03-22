@@ -1,5 +1,6 @@
-package bin.Control;
+package bin.Control.Control;
 
+import bin.Control.Control.DrawingController;
 import bin.Control.View.MainFrame;
 
 import java.awt.event.ActionEvent;

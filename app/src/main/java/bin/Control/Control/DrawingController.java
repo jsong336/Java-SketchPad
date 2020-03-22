@@ -1,4 +1,4 @@
-package bin.Control;
+package bin.Control.Control;
 
 import bin.Control.View.DrawingPanel;
 import bin.Control.View.MainFrame;

@@ -1,7 +1,7 @@
 package bin.Control.View;
 
 import bin.Control.Const;
-import bin.Control.MenuController;
+import bin.Control.Control.MenuController;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
