@@ -10,7 +10,7 @@ import java.awt.event.MouseListener;
 
 public class PopupMenu extends JPopupMenu implements MouseListener, ActionListener {
     DrawingPanel drawingPanel;
-    AbstractDrawing lastCopied = null;
+    static AbstractDrawing lastCopied = null;
 
     public PopupMenu(MouseEvent e){
         JMenuItem pasteMenu = new JMenuItem("Paste");
@@ -65,15 +65,24 @@ public class PopupMenu extends JPopupMenu implements MouseListener, ActionListen
         switch (e.getActionCommand()){
             case "Resize":
                 break;
+
             case "Copy":
-                // lastCopied = AbstractDrawing.getSelected(); // Create copy constructor
+                lastCopied = AbstractDrawing.copyAsChild(AbstractDrawing.getSelected()); // Create copy constructor
                 break;
+
             case "Paste":
-                // drawingPanel.pasteCopy(lastCopied);
+                if(lastCopied!=null){
+                    DrawingPanel.onlyOneInstance.pasteCopy();
+                }
+                else{
+                    System.out.println("Empty lastCopy");
+                }
                 break;
+
             case "Delete":
                 drawingPanel.removeItem(AbstractDrawing.getSelected());
                 break;
+
             default:
                 break;
         }

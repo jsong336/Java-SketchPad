@@ -16,5 +16,6 @@ public final class Const {
         public static final int DEFAULTS_RADIUS = 30;
         public static final int DEFAULTS_SIZE = 50;
         public static final int LINE_MARGIN = 5;
+        public static final int COPY_OFFSET = 5;
     }
 }

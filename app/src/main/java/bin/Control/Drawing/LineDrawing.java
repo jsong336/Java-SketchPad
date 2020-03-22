@@ -15,6 +15,14 @@ public class LineDrawing extends AbstractDrawing {
         this.y2 = y2;
     }
 
+    public LineDrawing(LineDrawing copy){
+        super(copy);
+        this.x1 = copy.x1 + Const.Drawing.COPY_OFFSET;
+        this.x2 = copy.x2 + Const.Drawing.COPY_OFFSET;
+        this.y1 = copy.y1 + Const.Drawing.COPY_OFFSET;
+        this.y2 = copy.y2 + Const.Drawing.COPY_OFFSET;
+    }
+
     @Override
     public Shape getShapeNow() {
             return new Line2D.Double(x1, y1, x2, y2);

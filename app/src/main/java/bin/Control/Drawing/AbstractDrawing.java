@@ -3,40 +3,66 @@ package bin.Control.Drawing;
 import java.awt.*;
 
 public abstract class AbstractDrawing {
+    private static AbstractDrawing selected;
+    public static boolean isDragging = false;
+    public static AbstractDrawing getSelected() { return AbstractDrawing.selected; }
+    public static void unSelect(){ selected = null; }
+
+    public abstract Shape getShapeNow();
+    public abstract void move(int newX, int newY);
+
     private boolean isFilled = false;
     private Color fillColor = Color.white;
     private Color borderColor = Color.black;
-    private static AbstractDrawing selected;
-    public static boolean isDragging = false;
-    public static AbstractDrawing getSelected(){
-        return AbstractDrawing.selected;
+
+    protected AbstractDrawing(){}
+
+    protected AbstractDrawing(AbstractDrawing copy){
+        this.isFilled = copy.isFilled;
+        this.fillColor = copy.fillColor;
+        this.borderColor = copy.borderColor;
     }
 
-    public abstract Shape getShapeNow();
+    public static AbstractDrawing copyAsChild(AbstractDrawing copy){
+        if(copy instanceof CircleDrawing){
+            return new CircleDrawing((CircleDrawing) copy);
+        }
 
-    public abstract void move(int newX, int newY);
+        if(copy instanceof LineDrawing){
+            return new LineDrawing((LineDrawing) copy);
+        }
+
+        if(copy instanceof PolygonDrawing){
+            return new PolygonDrawing((PolygonDrawing) copy);
+        }
+
+        if(copy instanceof RectangleDrawing){
+            return new RectangleDrawing((RectangleDrawing) copy);
+        }
+
+        return null;
+    }
 
     public Color getFillColor() {
         return fillColor;
-    }
-
-    public boolean isSelected(){
-        return selected == this;
     }
 
     public Color getBorderColor(){
         return isSelected() ? Color.red : borderColor;
     }
 
-    public void fill(Color fillColor){
-        this.fillColor = fillColor;
+    public boolean isSelected(){
+        return selected == this;
     }
 
     public void selectThis(){
         selected = this;
     }
 
-    public static void unSelect(){
-        selected = null;
+    public void fill(Color fillColor){
+        this.fillColor = fillColor;
     }
+
+
+
 }

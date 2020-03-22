@@ -12,9 +12,11 @@ import java.util.ArrayList;
 
 public class DrawingPanel extends JPanel implements MouseListener, MouseMotionListener {
     private ArrayList<AbstractDrawing> onScreen = new ArrayList<>();
+    public static DrawingPanel onlyOneInstance;
     public int mode = 0;
 
     public DrawingPanel(){
+        onlyOneInstance = this;
         setBackground(Color.lightGray);
         addMouseListener(this);
         addMouseMotionListener(this);
@@ -56,8 +58,8 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
         repaint();
     }
 
-    public void pasteCopy(AbstractDrawing item){
-        onScreen.add(item);
+    public void pasteCopy(){
+        onScreen.add(PopupMenu.lastCopied);
         repaint();
     }
 

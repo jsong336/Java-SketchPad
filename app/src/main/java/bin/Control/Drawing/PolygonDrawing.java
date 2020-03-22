@@ -4,11 +4,9 @@ import bin.Control.Const;
 import java.awt.*;
 
 public class PolygonDrawing extends AbstractDrawing{
-    int n;
-    int[] pointXs;
-    int[] pointYs;
-    int centerX;
-    int centerY;
+    int n, centerX, centerY;
+    int[] pointXs, pointYs;
+
     public PolygonDrawing(int n, int x, int y){
         if(n>0){
             this.n = n;
@@ -19,6 +17,14 @@ public class PolygonDrawing extends AbstractDrawing{
         else{
             System.out.println("Polygon with n<=0");
         }
+    }
+
+    public PolygonDrawing(PolygonDrawing copy){
+        super(copy);
+        this.n  = copy.n;
+        this.pointXs = new int[n];
+        this.pointYs = new int[n];
+        move(centerX + 2, centerY + 2);
     }
 
     @Override
