@@ -1,6 +1,6 @@
-package Control;
+package bin.Control;
 
-import View.MainFrame;
+import bin.Control.View.MainFrame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

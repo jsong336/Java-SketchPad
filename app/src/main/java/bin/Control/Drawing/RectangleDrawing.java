@@ -1,4 +1,4 @@
-package Drawing;
+package bin.Control.Drawing;
 
 import java.awt.*;
 
@@ -13,6 +13,12 @@ public class RectangleDrawing extends AbstractDrawing {
     }
     @Override
     public Shape getShapeNow() {
-        return new Rectangle(3, 3, 100, 100);
+        return new Rectangle((int)x, (int)y, (int)w, (int)h);
+    }
+
+    @Override
+    public void move(int newX, int newY) {
+        x = newX;
+        y = newY;
     }
 }

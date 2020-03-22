@@ -1,15 +1,15 @@
-package Control;
+package bin.Control;
 
-import View.DrawingPanel;
-import View.MainFrame;
-
-import java.util.ArrayList;
+import bin.Control.View.DrawingPanel;
+import bin.Control.View.MainFrame;
 
 public class DrawingController {
     private DrawingPanel drawingPanel;
+
     public DrawingController(MainFrame mainFrame){
         drawingPanel = mainFrame.drawingPanel;
     }
+
     void draw(String command){
         switch (command) {
             case "Line":

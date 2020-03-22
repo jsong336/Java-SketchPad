@@ -1,6 +1,7 @@
-package View;
+package bin.Control.View;
 
-import Control.MenuController;
+import bin.Control.Const;
+import bin.Control.MenuController;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -103,9 +104,10 @@ public class MainFrame extends JFrame{
     }
 
     public MainFrame () {
-        setSize(500, 500);
-        setResizable(true);
+        setSize(Const.Main.WIDTH, Const.Main.HEIGHT);
+        setTitle(Const.Main.TITLE);
 
+        setResizable(true);
         addMenuBar();
         addDrawingPane();
 
