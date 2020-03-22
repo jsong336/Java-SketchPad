@@ -1,9 +1,6 @@
 package bin.Control.View;
 import bin.Control.Const;
-import bin.Control.Drawing.AbstractDrawing;
-import bin.Control.Drawing.CircleDrawing;
-import bin.Control.Drawing.LineDrawing;
-import bin.Control.Drawing.RectangleDrawing;
+import bin.Control.Drawing.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -42,6 +39,13 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
     }
 
     public void drawEllipse(){}
+
+    public void drawPolygon(){
+        int n = Integer.parseInt(JOptionPane.showInputDialog("Please enter number of n-polygon"));
+        onScreen.add(new PolygonDrawing(n, 4*Const.Drawing.DEFAULTS_POS_X, 4*Const.Drawing.DEFAULTS_POS_Y));
+        System.out.println(onScreen);
+        repaint();
+    }
 
     @Override
     public void paint(Graphics g) {

@@ -21,6 +21,9 @@ public class DrawingController {
             case "Ellipse":
                 drawingPanel.drawCircle();
                 break;
+            case "Polygon":
+                drawingPanel.drawPolygon();
+                break;
             default:
                 break;
         }
