@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
 public class DrawingPanel extends JPanel implements MouseListener, MouseMotionListener {
@@ -46,6 +47,7 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2 = (Graphics2D)g;
+        g2.setStroke(new BasicStroke(2));
         for(AbstractDrawing obj : onScreen){
             g.setColor(obj.getBorderColor());
             g2.draw(obj.getShapeNow());
@@ -60,6 +62,11 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
             for (AbstractDrawing cur : onScreen) {
                 if (cur.getShapeNow().contains(e.getPoint())) {
                     drawing = cur;
+                }
+                else if(cur instanceof LineDrawing){
+                    System.out.println(cur);
+                    if(LineDrawing.isClicked(e.getX(), e.getY(), (Line2D.Double) cur.getShapeNow()))
+                        drawing = cur;
                 }
             }
             JPopupMenu popupMenu;
@@ -78,6 +85,10 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
         for (AbstractDrawing drawing : onScreen) {
             if (drawing.getShapeNow().contains(e.getPoint())) {
                 drawing.selectThis();
+            }
+            else if(drawing instanceof LineDrawing){
+                if(LineDrawing.isClicked(e.getX(), e.getY(), (Line2D.Double)drawing.getShapeNow()))
+                    drawing.selectThis();
             }
         }
         repaint();

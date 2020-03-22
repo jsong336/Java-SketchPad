@@ -16,14 +16,19 @@ public class PopupMenu extends JPopupMenu {
 
     public PopupMenu(AbstractDrawing drawing){
         this.drawing = drawing;
-        JMenuItem resizeMenu = new JMenuItem("Resize");
-        JMenuItem fillMenu = new JMenuItem("Fill");
-        JMenuItem copyMenu = new JMenuItem("Copy");
-        JMenuItem deleteMenu = new JMenuItem("Delete");
-        add(resizeMenu);
-        add(fillMenu);
-        add(copyMenu);
-        add(deleteMenu);
+        JMenuItem resizeItem = new JMenuItem("Resize");
+        resizeItem.setActionCommand("Resize");
+        JMenuItem fillItem = new JMenuItem("Fill");
+        resizeItem.setActionCommand("Fill");
+        JMenuItem copyItem = new JMenuItem("Copy");
+        resizeItem.setActionCommand("Copy");
+        JMenuItem deleteItem = new JMenuItem("Delete");
+        resizeItem.setActionCommand("Delete");
+
+        add(resizeItem);
+        add(fillItem);
+        add(copyItem);
+        add(deleteItem);
     }
 
 }

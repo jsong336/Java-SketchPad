@@ -1,5 +1,7 @@
 package bin.Control.Drawing;
 
+import bin.Control.Const;
+
 import java.awt.*;
 import java.awt.geom.Line2D;
 
@@ -15,14 +17,24 @@ public class LineDrawing extends AbstractDrawing {
 
     @Override
     public Shape getShapeNow() {
-        return new Line2D.Double(x1, y1, x2, y2);
+            return new Line2D.Double(x1, y1, x2, y2);
     }
 
     @Override
     public void move(int newX, int newY) {
+        x2 += newX - x1;
         x1 = newX;
-        x2 = (newX - x1) + x2;
+        y2 += newY - y1;
         y1 = newY;
-        y2 = (newY - y1) + y1;
+    }
+
+    public static boolean isClicked(int x, int y, Line2D.Double line) {
+        int boxX = x - Const.Drawing.LINE_MARGIN / 2;
+        int boxY = y - Const.Drawing.LINE_MARGIN / 2;
+
+        int width = Const.Drawing.LINE_MARGIN;
+        int height = Const.Drawing.LINE_MARGIN;
+
+        return line.intersects(boxX, boxY, width, height);
     }
 }
