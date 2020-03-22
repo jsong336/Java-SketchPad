@@ -41,9 +41,13 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
     public void drawEllipse(){}
 
     public void drawPolygon(){
-        int n = Integer.parseInt(JOptionPane.showInputDialog("Please enter number of n-polygon"));
-        onScreen.add(new PolygonDrawing(n, 4*Const.Drawing.DEFAULTS_POS_X, 4*Const.Drawing.DEFAULTS_POS_Y));
-        System.out.println(onScreen);
+        try{
+            int n = Integer.parseInt(JOptionPane.showInputDialog("Please enter number of n-polygon"));
+            onScreen.add(new PolygonDrawing(n, 4*Const.Drawing.DEFAULTS_POS_X, 4*Const.Drawing.DEFAULTS_POS_Y));
+        }
+        catch (Exception e){
+            JOptionPane.showMessageDialog(getParent().getComponent(0), "Please enter valid input!");
+        }
         repaint();
     }
 
