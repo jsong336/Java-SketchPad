@@ -40,6 +40,10 @@ public abstract class AbstractDrawing {
             return new RectangleDrawing((RectangleDrawing) copy);
         }
 
+        if(copy instanceof FreeHandDrawing){
+            return new FreeHandDrawing((FreeHandDrawing) copy);
+        }
+
         return null;
     }
 

@@ -24,6 +24,9 @@ public class DrawingController {
             case "Polygon":
                 drawingPanel.drawPolygon();
                 break;
+            case "Freehand":
+                drawingPanel.initiateFreehand();
+                break;
             default:
                 break;
         }

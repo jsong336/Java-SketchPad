@@ -14,6 +14,7 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
     private ArrayList<AbstractDrawing> onScreen = new ArrayList<>();
     public static DrawingPanel onlyOneInstance;
     public int mode = 0;
+    public boolean isFreeHand = false;
 
     public DrawingPanel(){
         onlyOneInstance = this;
@@ -53,6 +54,14 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
         repaint();
     }
 
+    public void initiateFreehand(){
+        isFreeHand = true;
+    }
+
+    public void drawFreehand(){
+
+    }
+
     public void removeItem(AbstractDrawing item){
         onScreen.remove(item);
         repaint();
@@ -71,6 +80,9 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
         for(AbstractDrawing obj : onScreen){
             g.setColor(obj.getBorderColor());
             g2.draw(obj.getShapeNow());
+            if(obj instanceof FreeHandDrawing){
+                g2.drawPolyline(((FreeHandDrawing) obj).xs, ((FreeHandDrawing) obj).ys, ((FreeHandDrawing) obj).i);
+            }
         }
     }
 
@@ -84,11 +96,16 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
                     drawing = cur;
                 }
                 else if(cur instanceof LineDrawing){
-                    System.out.println(cur);
                     if(LineDrawing.isClicked(e.getX(), e.getY(), (Line2D.Double) cur.getShapeNow()))
                         drawing = cur;
                 }
+                else if(cur instanceof FreeHandDrawing){
+                    if(FreeHandDrawing.isClicked(e.getX(), e.getY(), (FreeHandDrawing)cur)){
+                        drawing = cur;
+                    }
+                }
             }
+
             JPopupMenu popupMenu;
             if(drawing == null){
                 popupMenu = new PopupMenu(e);
@@ -104,13 +121,25 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
 
     @Override
     public void mousePressed(MouseEvent e) {
-        for (AbstractDrawing drawing : onScreen) {
-            if (drawing.getShapeNow().contains(e.getPoint())) {
-                drawing.selectThis();
-            }
-            else if(drawing instanceof LineDrawing){
-                if(LineDrawing.isClicked(e.getX(), e.getY(), (Line2D.Double)drawing.getShapeNow()))
+        if(isFreeHand){
+            AbstractDrawing stroke = new FreeHandDrawing(e.getX(), e.getY());
+            onScreen.add(stroke);
+            stroke.selectThis();
+        }
+        else{
+            for (AbstractDrawing drawing : onScreen) {
+                if (drawing.getShapeNow().contains(e.getPoint())) {
                     drawing.selectThis();
+                }
+                else if(drawing instanceof LineDrawing){
+                    if(LineDrawing.isClicked(e.getX(), e.getY(), (Line2D.Double)drawing.getShapeNow()))
+                        drawing.selectThis();
+                }
+                else if(drawing instanceof FreeHandDrawing){
+                    if(FreeHandDrawing.isClicked(e.getX(), e.getY(), (FreeHandDrawing)drawing)){
+                        drawing.selectThis();
+                    }
+                }
             }
         }
         repaint();
@@ -120,14 +149,22 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
     public void mouseReleased(MouseEvent e) {
         AbstractDrawing.unSelect();
         AbstractDrawing.isDragging = false;
+        if(isFreeHand) isFreeHand = false;
         repaint();
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
         AbstractDrawing.isDragging = true;
-        if(AbstractDrawing.getSelected() != null){
-            AbstractDrawing.getSelected().move(e.getX(), e.getY());
+        if(isFreeHand){
+            if(AbstractDrawing.getSelected() != null){
+                ((FreeHandDrawing)AbstractDrawing.getSelected()).drawPoint(e.getX(), e.getY());
+            }
+        }
+        else{
+            if(AbstractDrawing.getSelected() != null){
+                AbstractDrawing.getSelected().move(e.getX(), e.getY());
+            }
         }
         repaint();
     }
