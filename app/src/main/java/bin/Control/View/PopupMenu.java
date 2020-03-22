@@ -64,6 +64,7 @@ public class PopupMenu extends JPopupMenu implements MouseListener, ActionListen
         System.out.println(e.getActionCommand());
         switch (e.getActionCommand()){
             case "Resize":
+                drawingPanel.initiateResize();
                 break;
 
             case "Copy":

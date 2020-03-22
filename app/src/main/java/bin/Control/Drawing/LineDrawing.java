@@ -45,4 +45,10 @@ public class LineDrawing extends AbstractDrawing {
 
         return line.intersects(boxX, boxY, width, height);
     }
+
+    @Override
+    public void resize(int mouseX, int mouseY) {
+        x2 = mouseX;
+        y2 = mouseY;
+    }
 }

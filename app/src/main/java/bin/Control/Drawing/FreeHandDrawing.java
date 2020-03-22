@@ -55,4 +55,8 @@ public class FreeHandDrawing extends AbstractDrawing{
 
         return inX&&inY;
     }
+    @Override
+    public void resize(int mouseX, int mouseY) {
+        // TODO
+    }
 }

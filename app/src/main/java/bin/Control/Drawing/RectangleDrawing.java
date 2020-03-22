@@ -32,4 +32,10 @@ public class RectangleDrawing extends AbstractDrawing {
         x = newX;
         y = newY;
     }
+
+    @Override
+    public void resize(int mouseX, int mouseY) {
+        w = mouseX;
+        h = mouseY;
+    }
 }

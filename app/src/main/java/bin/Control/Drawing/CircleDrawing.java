@@ -32,4 +32,9 @@ public class CircleDrawing extends AbstractDrawing {
         this.centerX = newX;
         this.centerY = newY;
     }
+
+    @Override
+    public void resize(int mouseX, int mouseY) {
+        radius = (int)Math.sqrt(mouseX * mouseX + mouseY * mouseY);
+    }
 }

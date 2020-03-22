@@ -15,6 +15,7 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
     public static DrawingPanel onlyOneInstance;
     public int mode = 0;
     public boolean isFreeHand = false;
+    public boolean isResizing = false;
 
     public DrawingPanel(){
         onlyOneInstance = this;
@@ -58,8 +59,8 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
         isFreeHand = true;
     }
 
-    public void drawFreehand(){
-
+    public void initiateResize(){
+        isResizing = true;
     }
 
     public void removeItem(AbstractDrawing item){
@@ -150,6 +151,7 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
         AbstractDrawing.unSelect();
         AbstractDrawing.isDragging = false;
         if(isFreeHand) isFreeHand = false;
+        if(isResizing) isResizing = false;
         repaint();
     }
 
@@ -161,6 +163,9 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
                 ((FreeHandDrawing)AbstractDrawing.getSelected()).drawPoint(e.getX(), e.getY());
             }
         }
+        else if(isResizing){
+            AbstractDrawing.getSelected().resize(e.getX(), e.getY());
+        }
         else{
             if(AbstractDrawing.getSelected() != null){
                 AbstractDrawing.getSelected().move(e.getX(), e.getY());
@@ -168,10 +173,13 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
         }
         repaint();
     }
+
     @Override
     public void mouseMoved(MouseEvent e) {}
+
     @Override
     public void mouseExited(MouseEvent e) {}
+
     @Override
     public void mouseEntered(MouseEvent e) {}
 }

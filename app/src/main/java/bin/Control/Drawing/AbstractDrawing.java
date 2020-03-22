@@ -67,6 +67,5 @@ public abstract class AbstractDrawing {
         this.fillColor = fillColor;
     }
 
-
-
+    public abstract void resize(int mouseX, int mouseY);
 }
