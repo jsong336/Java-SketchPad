@@ -51,6 +51,16 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
         repaint();
     }
 
+    public void removeItem(AbstractDrawing item){
+        onScreen.remove(item);
+        repaint();
+    }
+
+    public void pasteCopy(AbstractDrawing item){
+        onScreen.add(item);
+        repaint();
+    }
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -80,9 +90,11 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
             JPopupMenu popupMenu;
             if(drawing == null){
                 popupMenu = new PopupMenu(e);
+                AbstractDrawing.unSelect();
             }
             else{
-                popupMenu = new PopupMenu(drawing);
+                drawing.selectThis();
+                popupMenu = new PopupMenu(drawing, this);
             }
             popupMenu.show(e.getComponent(), e.getX(), e.getY());
         }

@@ -13,6 +13,7 @@ public abstract class AbstractDrawing {
     }
 
     public abstract Shape getShapeNow();
+
     public abstract void move(int newX, int newY);
 
     public Color getFillColor() {

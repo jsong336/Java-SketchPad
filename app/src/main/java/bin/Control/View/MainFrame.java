@@ -98,7 +98,6 @@ public class MainFrame extends JFrame{
         //add menubar to the frame
         setMenuBar(menuBar);
     }
-
     private void addDrawingPane(){
         setContentPane(drawingPanel);
     }
