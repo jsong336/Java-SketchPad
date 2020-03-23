@@ -85,6 +85,7 @@ public class PopupMenu extends JPopupMenu implements MouseListener, ActionListen
                 break;
 
             case "Fill":
+                drawingPanel.fillColor();
                 break;
 
             default:

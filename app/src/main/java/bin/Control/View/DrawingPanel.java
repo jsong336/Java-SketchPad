@@ -81,14 +81,25 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
         repaint();
     }
 
+    public void fillColor(){
+        AbstractDrawing.getSelected().fill(JColorChooser.showDialog(null, "Choose a color", Color.RED));
+        repaint();
+    }
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2 = (Graphics2D)g;
         g2.setStroke(new BasicStroke(2));
         for(AbstractDrawing obj : onScreen){
+            Shape newShape = obj.getShapeNow();
+            if(obj.isFilled()){
+                System.out.println(obj.getFillColor());
+                g2.setPaint(obj.getFillColor());
+                g2.fill(newShape);
+            }
             g.setColor(obj.getBorderColor());
-            g2.draw(obj.getShapeNow());
+            g2.draw(newShape);
             if(obj instanceof FreeHandDrawing){
                 g2.drawPolyline(((FreeHandDrawing) obj).xs, ((FreeHandDrawing) obj).ys, ((FreeHandDrawing) obj).i);
             }

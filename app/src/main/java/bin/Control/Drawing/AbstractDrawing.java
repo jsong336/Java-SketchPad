@@ -56,6 +56,9 @@ public abstract class AbstractDrawing {
         return fillColor;
     }
 
+    public boolean isFilled(){
+        return isFilled;
+    }
     public Color getBorderColor(){
         return isSelected() ? Color.red : borderColor;
     }
@@ -70,6 +73,7 @@ public abstract class AbstractDrawing {
 
     public void fill(Color fillColor){
         this.fillColor = fillColor;
+        this.isFilled = true;
     }
 
     public abstract void resize(int mouseX, int mouseY);

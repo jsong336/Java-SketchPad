@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 public class MainFrame extends JFrame{
     public final DrawingPanel drawingPanel = new DrawingPanel();
     private final MenuController menuController = new MenuController(this);
+    public static MainFrame onlyAndIfOnly;
 
     private void addMenuBar() {
         //create a menu bar
@@ -113,6 +114,7 @@ public class MainFrame extends JFrame{
     }
 
     public MainFrame () {
+        onlyAndIfOnly = this;
         setSize(Const.Main.WIDTH, Const.Main.HEIGHT);
         setTitle(Const.Main.TITLE);
 
