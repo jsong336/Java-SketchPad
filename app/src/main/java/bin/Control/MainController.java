@@ -5,12 +5,11 @@ import bin.View.MainView;
 
 public class MainController {
     public BoardController boardController;
-    public MainView mainView;
 
     public MainController(){
         boardController = new BoardController();
-        mainView = new MainView(this);
-        boardController.RegisterView(mainView.boardView);
+        MainView mainView = new MainView(this);
+        boardController.registerView(mainView.getBoardView());
    }
 
     public void setDrawMode(String cmd){

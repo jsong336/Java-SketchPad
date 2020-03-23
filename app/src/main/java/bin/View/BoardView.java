@@ -74,23 +74,23 @@ public class BoardView extends JPanel {
         @Override
         public void mouseClicked(MouseEvent e) {
             if(e.getButton() != 1){
-               boardController.RightClickBoard(e);
+               boardController.rightClickDoneOnBoard(e);
             }
             else{
-                boardController.LeftClickBoard(e.getPoint());
+                boardController.leftClickDoneOnBoard(e.getPoint());
             }
             repaint();
         }
 
         @Override
         public void mousePressed(MouseEvent e) {
-            boardController.pressClick(e.getPoint());
+            boardController.pressOnBoard(e.getPoint());
             repaint();
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
-            boardController.releaseClick();
+            boardController.releaseOnBoard();
             repaint();
         }
 

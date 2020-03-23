@@ -10,13 +10,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 public class MainView extends JFrame {
-    public MainController mainController;
-    public BoardView boardView;
+    public BoardView _boardView;
+    private MainController _mainController;
     private MainMenuListener _menuListener;
 
     public MainView (MainController controller) {
-        mainController = controller;
-        boardView = new BoardView(mainController.boardController);
+        _mainController = controller;
+        _boardView = new BoardView(_mainController.boardController);
         _menuListener = new MainMenuListener();
 
         setTitle(Const.Main.TITLE);
@@ -24,8 +24,12 @@ public class MainView extends JFrame {
 
         setResizable(true);
         _addMenuBar();
-        setContentPane(boardView);
+        setContentPane(_boardView);
         setVisible(true);
+    }
+
+    public BoardView getBoardView(){
+        return _boardView;
     }
 
     private void _addMenuBar() {
@@ -142,7 +146,7 @@ public class MainView extends JFrame {
                     break;
 
                 case "Draw":
-                    mainController.setDrawMode(argument);
+                    _mainController.setDrawMode(argument);
                     break;
 
                 default:

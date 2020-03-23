@@ -13,38 +13,34 @@ import java.util.ArrayList;
 public class BoardController {
     private Board _board;
     private BoardView _boardView = null;
-    AbstractDrawable lastCopied = null;
+    private AbstractDrawable _lastCopied = null;
 
     public BoardController(){
         _board = new Board();
     }
 
-    public void RegisterView(BoardView view){
+    public void registerView(BoardView view){
         _boardView = view;
     }
 
-    public ArrayList<AbstractDrawable> getOnScreen(){
-        return _board.getOnScreen();
-    }
+    public ArrayList<AbstractDrawable> getOnScreen(){ return _board.getOnScreen();  }
 
     public void setMode(BoardMode mode){
         _board.setMode(mode);
     }
 
-
+    // Board utility functions
     public void copy(){
-        lastCopied = AbstractDrawable.copyAsChild(_board.getSelectedDrawable());
+        _lastCopied = AbstractDrawable.copyAsChild(_board.getSelectedDrawable());
     }
 
     public void paste(){
-        if(lastCopied != null){
-            System.out.println(lastCopied);
-            _board.getOnScreen().add(lastCopied);
-            lastCopied = AbstractDrawable.copyAsChild(lastCopied);
+        if(_lastCopied != null){
+            _board.getOnScreen().add(_lastCopied);
+            _lastCopied = AbstractDrawable.copyAsChild(_lastCopied);
+            return;
         }
-        else{
-            System.out.println("Null");
-        }
+        System.out.println("Paste null");
     }
 
     public void remove(){
@@ -55,7 +51,8 @@ public class BoardController {
         _board.getSelectedDrawable().fill(color);
     }
 
-    public void LeftClickBoard(Point mousePoint){
+    // View Mouse Action
+    public void leftClickDoneOnBoard(Point mousePoint){
         switch (_board.getMode()){
             case DEFAULT:
                 _board.click(mousePoint);
@@ -86,11 +83,26 @@ public class BoardController {
         }
     }
 
-    public void RightClickBoard(MouseEvent e){
+    public void rightClickDoneOnBoard(MouseEvent e){
         JPopupMenu popup = new PopupMenuView(_boardView, _board.getSelectedDrawable() != null);
         popup.show(e.getComponent(), e.getX(), e.getY());
     }
 
+    public void pressOnBoard(Point mousePoint){
+        if(_board.getMode() == BoardMode.FREE_HAND)
+            _board.initFreeHandDraw(mousePoint);
+    }
+
+    public void releaseOnBoard(){
+        switch (_board.getMode()){
+            case RESIZE:
+            case FREE_HAND:
+                _board.setMode(BoardMode.DEFAULT);
+                break;
+            default:
+                break;
+        }
+    }
 
     public void dragOnBoard(Point mousePoint){
         AbstractDrawable drawable = _board.getSelectedDrawable();
@@ -108,20 +120,6 @@ public class BoardController {
                     drawable.resize(mousePoint);
                     break;
             }
-        }
-    }
-    public void pressClick(Point mousePoint){
-        if(_board.getMode() == BoardMode.FREE_HAND)
-            _board.initFreeHandDraw(mousePoint);
-    }
-    public void releaseClick(){
-        switch (_board.getMode()){
-            case RESIZE:
-            case FREE_HAND:
-                _board.setMode(BoardMode.DEFAULT);
-                break;
-            default:
-                break;
         }
     }
 }
