@@ -1,17 +1,34 @@
-package bin.Control.View;
+package bin.View;
 
-import bin.Control.Const;
-import bin.Control.Control.MenuController;
+import bin.Const;
+import bin.Control.MainController;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-public class MainFrame extends JFrame{
-    public final DrawingPanel drawingPanel = new DrawingPanel();
-    private final MenuController menuController = new MenuController(this);
-    public static MainFrame onlyAndIfOnly;
+public class MainView extends JFrame {
+    public MainController mainController;
+    public BoardView boardView;
+    private MainMenuListener _menuListener;
 
-    private void addMenuBar() {
+    public MainView (MainController controller) {
+        mainController = controller;
+        boardView = new BoardView(mainController.boardController);
+        _menuListener = new MainMenuListener();
+
+        setTitle(Const.Main.TITLE);
+        setSize(Const.Main.WIDTH, Const.Main.HEIGHT);
+
+        setResizable(true);
+        _addMenuBar();
+        setContentPane(boardView);
+        setVisible(true);
+    }
+
+    private void _addMenuBar() {
         //create a menu bar
         final MenuBar menuBar = new MenuBar();
 
@@ -44,8 +61,8 @@ public class MainFrame extends JFrame{
         pasteMenuItem.setActionCommand("Edit-Paste");
 
         //create drawMenu items
-        MenuItem drawItem = new MenuItem("Draw");
-        drawItem.setActionCommand("Draw-Freehand");
+        MenuItem drawFreeHandItem = new MenuItem("FreeHand");
+        drawFreeHandItem.setActionCommand("Draw-Freehand");
 
         MenuItem drawLineItem = new MenuItem("Line");
         drawLineItem.setActionCommand("Draw-Line");
@@ -66,22 +83,22 @@ public class MainFrame extends JFrame{
         drawPolygon.setActionCommand("Draw-Polygon");
 
         //add menu listener
-        newMenuItem.addActionListener(menuController);
-        openMenuItem.addActionListener(menuController);
-        saveMenuItem.addActionListener(menuController);
-        exitMenuItem.addActionListener(menuController);
+        newMenuItem.addActionListener(_menuListener);
+        openMenuItem.addActionListener(_menuListener);
+        saveMenuItem.addActionListener(_menuListener);
+        exitMenuItem.addActionListener(_menuListener);
 
-        cutMenuItem.addActionListener(menuController);
-        copyMenuItem.addActionListener(menuController);
-        pasteMenuItem.addActionListener(menuController);
+        cutMenuItem.addActionListener(_menuListener);
+        copyMenuItem.addActionListener(_menuListener);
+        pasteMenuItem.addActionListener(_menuListener);
 
-        drawItem.addActionListener(menuController);
-        drawLineItem.addActionListener(menuController);
-        drawRectangleItem.addActionListener(menuController);
-        drawSquareItem.addActionListener(menuController);
-        drawCircleItem.addActionListener(menuController);
-        drawEllipseItem.addActionListener(menuController);
-        drawPolygon.addActionListener(menuController);
+        drawFreeHandItem.addActionListener(_menuListener);
+        drawLineItem.addActionListener(_menuListener);
+        drawRectangleItem.addActionListener(_menuListener);
+        drawSquareItem.addActionListener(_menuListener);
+        drawCircleItem.addActionListener(_menuListener);
+        drawEllipseItem.addActionListener(_menuListener);
+        drawPolygon.addActionListener(_menuListener);
 
         //add menu items to menus
         fileMenu.add(newMenuItem);
@@ -93,7 +110,7 @@ public class MainFrame extends JFrame{
         editMenu.add(copyMenuItem);
         editMenu.add(pasteMenuItem);
 
-        drawMenu.add(drawItem);
+        drawMenu.add(drawFreeHandItem);
         drawMenu.add(drawLineItem);
         drawMenu.add(drawRectangleItem);
         drawMenu.add(drawSquareItem);
@@ -109,19 +126,28 @@ public class MainFrame extends JFrame{
         //add menubar to the frame
         setMenuBar(menuBar);
     }
-    private void addDrawingPane(){
-        setContentPane(drawingPanel);
-    }
 
-    public MainFrame () {
-        onlyAndIfOnly = this;
-        setSize(Const.Main.WIDTH, Const.Main.HEIGHT);
-        setTitle(Const.Main.TITLE);
+    class MainMenuListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String[] actCommand = e.getActionCommand().split("-");
+            String type = actCommand[0];
+            String argument = actCommand[1];
 
-        setResizable(true);
-        addMenuBar();
-        addDrawingPane();
+            switch (type){
+                case "File":
+                    break;
 
-        setVisible(true);
+                case "Edit":
+                    break;
+
+                case "Draw":
+                    mainController.setDrawMode(argument);
+                    break;
+
+                default:
+                    break;
+            }
+        }
     }
 }

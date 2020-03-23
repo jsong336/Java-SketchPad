@@ -1,4 +1,4 @@
-package bin.Control;
+package bin;
 
 public final class Const {
     private Const() {} // prevent instantiation
