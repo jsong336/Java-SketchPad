@@ -18,6 +18,9 @@ public class DrawingController {
             case "Rectangle":
                 drawingPanel.drawRectangle();
                 break;
+            case "Square":
+                drawingPanel.drawSquare();
+                break;
             case "Ellipse":
                 drawingPanel.drawEllipse();
                 break;

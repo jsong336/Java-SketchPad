@@ -36,6 +36,11 @@ public class DrawingPanel extends JPanel implements MouseListener, MouseMotionLi
         repaint();
     }
 
+    public void drawSquare(){
+        onScreen.add(new Square(Const.Drawing.DEFAULTS_POS_X, Const.Drawing.DEFAULTS_POS_Y, Const.Drawing.DEFAULTS_SIZE));
+        repaint();
+    }
+
     public void drawCircle(){
         mode = 2;
         onScreen.add(new CircleDrawing(Const.Drawing.DEFAULTS_RADIUS, Const.Drawing.DEFAULTS_POS_X, Const.Drawing.DEFAULTS_POS_Y));

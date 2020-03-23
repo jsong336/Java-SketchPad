@@ -43,7 +43,9 @@ public abstract class AbstractDrawing {
         if(copy instanceof RectangleDrawing){
             return new RectangleDrawing((RectangleDrawing) copy);
         }
-
+        if(copy instanceof Square){
+            return new Square((Square)copy);
+        }
         if(copy instanceof FreeHandDrawing){
             return new FreeHandDrawing((FreeHandDrawing) copy);
         }

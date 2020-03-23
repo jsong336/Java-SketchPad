@@ -84,6 +84,9 @@ public class PopupMenu extends JPopupMenu implements MouseListener, ActionListen
                 drawingPanel.removeItem(AbstractDrawing.getSelected());
                 break;
 
+            case "Fill":
+                break;
+
             default:
                 break;
         }
