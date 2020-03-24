@@ -27,6 +27,9 @@ public class BoardController {
     public ArrayList<AbstractDrawable> getOnScreen(){ return _board.getOnScreen();  }
 
     public void setMode(BoardMode mode){
+        if(_board.getMode()==BoardMode.MULTILINES_DRAWING && mode == BoardMode.DEFAULT){
+            _board.unSelectAll();
+        }
         _board.setMode(mode);
     }
 
@@ -70,9 +73,10 @@ public class BoardController {
                 break;
             case POLY_DRAW:
                 int n = _boardView.promptPolyN();
-                if(n >= 0){
+                if(n > 1){
                     _board.drawPolygon(mousePoint, n);
                 }
+                setMode(BoardMode.DEFAULT);
                 break;
             case SQUARE_DRAW:
                 _board.drawSquare(mousePoint);
@@ -86,11 +90,10 @@ public class BoardController {
             case MULTILINES_DRAW:
                 _board.initMultiLinesDraw(mousePoint);
                 setMode(BoardMode.MULTILINES_DRAWING);
+                _boardView.repaint();
                 break;
             case MULTILINES_DRAWING:
-                System.out.println(_board.getSelectedDrawable());
                 if(_board.getSelectedDrawable() instanceof MultiLines){
-                    System.out.println(((MultiLines)_board.getSelectedDrawable()).i);
                     if(((MultiLines)_board.getSelectedDrawable()).i >= 1){
                         _board.connectLines(mousePoint);
                     }
@@ -117,13 +120,16 @@ public class BoardController {
         switch (_board.getMode()){
             case RESIZE:
                 _board.setMode(BoardMode.DEFAULT);
+                _board.unSelectAll();
                 break;
             case FREE_HAND:
                 //_board.setMode(BoardMode.DEFAULT);
+                _board.unSelectAll();
                 break;
             default:
                 break;
         }
+        _boardView.repaint();
     }
 
     public void dragOnBoard(Point mousePoint){

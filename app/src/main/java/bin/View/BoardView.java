@@ -26,8 +26,8 @@ public class BoardView extends JPanel {
         int n = 0;
         try{
             n = Integer.parseInt(JOptionPane.showInputDialog("Please enter number of n-polygon"));
-            if(n<=0){
-                JOptionPane.showMessageDialog(getParent().getComponent(0), "Please enter valid input!");
+            if(n < 3){
+                JOptionPane.showMessageDialog(getParent().getComponent(0), "Please enter number greater than 2");
                 n = 0;
             }
         }
