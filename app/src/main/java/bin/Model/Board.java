@@ -44,7 +44,7 @@ public class Board {
         this._selectedDrawable = drawable;
     }
 
-    private void unSelectAll(){
+    public void unSelectAll(){
         for(AbstractDrawable obj: _onScreen)
             obj.unSelectThis();
         _selectedDrawable = null;

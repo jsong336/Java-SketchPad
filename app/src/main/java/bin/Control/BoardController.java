@@ -33,6 +33,7 @@ public class BoardController {
     // Board utility functions
     public void copy(){
         _lastCopied = AbstractDrawable.copyAsChild(_board.getSelectedDrawable());
+        _boardView.repaint();
     }
 
     public void paste(){
@@ -41,15 +42,18 @@ public class BoardController {
             _lastCopied = AbstractDrawable.copyAsChild(_lastCopied);
             return;
         }
-        System.out.println("Paste null");
+        _board.unSelectAll();
+        _boardView.repaint();
     }
 
     public void remove(){
         _board.getOnScreen().remove(_board.getSelectedDrawable());
+        _boardView.repaint();
     }
 
     public void fill(Color color){
         _board.getSelectedDrawable().fill(color);
+        _boardView.repaint();
     }
 
     // View Mouse Action

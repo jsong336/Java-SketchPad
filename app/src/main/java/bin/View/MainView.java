@@ -59,9 +59,6 @@ public class MainView extends JFrame {
         JMenu drawMenu = new JMenu("Draw");
 
         //create fileMenu items
-        JMenuItem newMenuItem = new JMenuItem("New");
-        newMenuItem.setActionCommand("File-New");
-
         JMenuItem openMenuItem = new JMenuItem("Open");
         openMenuItem.setActionCommand("File-Open");
 
@@ -107,7 +104,6 @@ public class MainView extends JFrame {
         drawClosedPolygon.setActionCommand("Draw-Multilines");
 
         //add menu listener
-        newMenuItem.addActionListener(_menuListener);
         openMenuItem.addActionListener(_menuListener);
         saveMenuItem.addActionListener(_menuListener);
         exitMenuItem.addActionListener(_menuListener);
@@ -126,7 +122,6 @@ public class MainView extends JFrame {
         drawClosedPolygon.addActionListener(_menuListener);
 
         //add menu items to menus
-        fileMenu.add(newMenuItem);
         fileMenu.add(openMenuItem);
         fileMenu.add(saveMenuItem);
         fileMenu.add(exitMenuItem);
@@ -165,9 +160,12 @@ public class MainView extends JFrame {
 
             switch (type){
                 case "File":
+                    _mainController.fileControl(argument);
                     break;
 
                 case "Edit":
+                    _mainController.edit(argument);
+                    repaint();
                     break;
 
                 case "Draw":

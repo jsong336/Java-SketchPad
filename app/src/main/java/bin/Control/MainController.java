@@ -43,4 +43,38 @@ public class MainController {
                 break;
         }
     }
+
+    public void edit(String cmd){
+        switch (cmd){
+            case "Copy":
+                boardController.copy();
+                break;
+
+            case "Paste":
+                boardController.paste();
+                break;
+
+            case "Cut":
+                boardController.copy();
+                boardController.remove();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    public void fileControl(String cmd){
+        switch (cmd){
+            case "Open":
+                break;
+            case "Save":
+                break;
+            case "Exit":
+                System.exit(0);
+                break;
+            default:
+                break;
+        }
+    }
 }
