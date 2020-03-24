@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 
 public class MainView extends JFrame {
     public BoardView _boardView;
@@ -22,6 +21,9 @@ public class MainView extends JFrame {
         setTitle(Const.Main.TITLE);
         setSize(Const.Main.WIDTH, Const.Main.HEIGHT);
 
+        Font f = new Font("sans-serif", Font.PLAIN, 15);
+        UIManager.put("Menu.font", f);
+
         setResizable(true);
         _addMenuBar();
         setContentPane(_boardView);
@@ -34,59 +36,74 @@ public class MainView extends JFrame {
 
     private void _addMenuBar() {
         //create a menu bar
-        final MenuBar menuBar = new MenuBar();
+        final JMenuBar menuBar = new JMenuBar(){
+            Color bgColor= new Color(224, 215,132);
+
+            public void setColor(Color color) {
+                bgColor=color;
+            }
+
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setColor(bgColor);
+                g2d.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
+
+            }
+        };
 
         //create menus
-        Menu fileMenu = new Menu("File");
-        Menu editMenu = new Menu("Edit");
-        Menu drawMenu = new Menu("Draw");
+        JMenu fileMenu = new JMenu("File");
+        JMenu editMenu = new JMenu("Edit");
+        JMenu drawMenu = new JMenu("Draw");
 
         //create fileMenu items
-        MenuItem newMenuItem = new MenuItem("New", new MenuShortcut(KeyEvent.VK_N));
+        JMenuItem newMenuItem = new JMenuItem("New");
         newMenuItem.setActionCommand("File-New");
 
-        MenuItem openMenuItem = new MenuItem("Open");
+        JMenuItem openMenuItem = new JMenuItem("Open");
         openMenuItem.setActionCommand("File-Open");
 
-        MenuItem saveMenuItem = new MenuItem("Save");
+        JMenuItem saveMenuItem = new JMenuItem("Save");
         saveMenuItem.setActionCommand("File-Save");
 
-        MenuItem exitMenuItem = new MenuItem("Exit");
+        JMenuItem exitMenuItem = new JMenuItem("Exit");
         exitMenuItem.setActionCommand("File-Exit");
 
         //create editMenu items
-        MenuItem cutMenuItem = new MenuItem("Cut");
+        JMenuItem cutMenuItem = new JMenuItem("Cut");
         cutMenuItem.setActionCommand("Edit-Cut");
 
-        MenuItem copyMenuItem = new MenuItem("Copy");
+        JMenuItem copyMenuItem = new JMenuItem("Copy");
         copyMenuItem.setActionCommand("Edit-Copy");
 
-        MenuItem pasteMenuItem = new MenuItem("Paste");
+        JMenuItem pasteMenuItem = new JMenuItem("Paste");
         pasteMenuItem.setActionCommand("Edit-Paste");
 
         //create drawMenu items
-        MenuItem drawFreeHandItem = new MenuItem("FreeHand");
+        JMenuItem drawFreeHandItem = new JMenuItem("FreeHand");
         drawFreeHandItem.setActionCommand("Draw-Freehand");
 
-        MenuItem drawLineItem = new MenuItem("Line");
+        JMenuItem drawLineItem = new JMenuItem("Line");
         drawLineItem.setActionCommand("Draw-Line");
 
-        MenuItem drawRectangleItem = new MenuItem("Rectangle");
+        JMenuItem drawRectangleItem = new JMenuItem("Rectangle");
         drawRectangleItem.setActionCommand("Draw-Rectangle");
 
-        MenuItem drawSquareItem = new MenuItem("Square");
+        JMenuItem drawSquareItem = new JMenuItem("Square");
         drawSquareItem.setActionCommand("Draw-Square");
 
-        MenuItem drawEllipseItem = new MenuItem("Ellipse");
+        JMenuItem drawEllipseItem = new JMenuItem("Ellipse");
         drawEllipseItem.setActionCommand("Draw-Ellipse");
 
-        MenuItem drawCircleItem = new MenuItem("Circle");
+        JMenuItem drawCircleItem = new JMenuItem("Circle");
         drawCircleItem.setActionCommand("Draw-Circle");
 
-        MenuItem drawPolygon = new MenuItem("Polygon");
+        JMenuItem drawPolygon = new JMenuItem("Polygon");
         drawPolygon.setActionCommand("Draw-Polygon");
 
-        MenuItem drawClosedPolygon = new MenuItem("Multiple Lines");
+        JMenuItem drawClosedPolygon = new JMenuItem("Multiple Lines");
         drawClosedPolygon.setActionCommand("Draw-Multilines");
 
         //add menu listener
@@ -133,7 +150,10 @@ public class MainView extends JFrame {
         menuBar.add(drawMenu);
 
         //add menubar to the frame
-        setMenuBar(menuBar);
+        setJMenuBar(menuBar);
+    }
+
+    private void setMenuBar(JMenuBar menuBar) {
     }
 
     class MainMenuListener implements ActionListener {

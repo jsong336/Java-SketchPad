@@ -14,7 +14,7 @@ public class BoardView extends JPanel {
     public BoardView(BoardController controller){
         boardController = controller;
 
-        setBackground(Color.lightGray);
+        setBackground(new Color(242, 238, 203));
 
         addMouseListener(new BoardMouseListener());
         addMouseMotionListener(new BoardMouseMotionListener());
