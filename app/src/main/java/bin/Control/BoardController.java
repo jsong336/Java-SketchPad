@@ -112,8 +112,10 @@ public class BoardController {
     public void releaseOnBoard(){
         switch (_board.getMode()){
             case RESIZE:
-            case FREE_HAND:
                 _board.setMode(BoardMode.DEFAULT);
+                break;
+            case FREE_HAND:
+                //_board.setMode(BoardMode.DEFAULT);
                 break;
             default:
                 break;
