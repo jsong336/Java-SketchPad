@@ -36,6 +36,9 @@ public class MainController {
                 boardController.setMode(BoardMode.CIRCLE_DRAW);
                 break;
 
+            case "Multilines":
+                boardController.setMode(BoardMode.MULTILINES_DRAW);
+
             default:
                 break;
         }

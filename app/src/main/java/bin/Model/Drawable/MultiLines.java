@@ -3,18 +3,19 @@ package bin.Model.Drawable;
 import bin.Const;
 
 import java.awt.*;
+import java.awt.geom.Line2D;
 
-public class FreeHand extends AbstractDrawable {
+public class MultiLines extends AbstractDrawable{
     public int[] xs = new int[1000];
     public int[] ys = new int[1000];
     public int i = 0;
 
-    public FreeHand(Point startPoint){
+    public MultiLines(Point startPoint){
         super();
         drawPoint(startPoint);
     }
 
-    public FreeHand(FreeHand copy){
+    public MultiLines(MultiLines copy){
         super(copy);
         this.i = copy.i;
         System.arraycopy(copy.xs, 0, xs, 0, 1000);
@@ -26,6 +27,7 @@ public class FreeHand extends AbstractDrawable {
     }
 
     public void drawPoint(Point mousePoint){
+        System.out.println();
         xs[i] = (int)mousePoint.getX();
         ys[i] = (int)mousePoint.getY();
         i++;
@@ -37,18 +39,27 @@ public class FreeHand extends AbstractDrawable {
         if(fill!=null)
             g2.setPaint(fill);
         g2.setColor(getBorderColor());
-        g2.drawPolyline(xs, ys, i);
+        for(int j=0;j<i-1;j++)
+            g2.draw(new Line2D.Double(xs[j], ys[j], xs[j+1], ys[j+1]));
     }
 
     @Override
     public boolean isClicked(Point mousePoint) {
-        boolean inX = false;
-        boolean inY = false;
-        for(int j=0; j < i; j++){
-            if(Math.abs(xs[j] -  mousePoint.getX()) < Const.Drawing.LINE_MARGIN) inX = true;
-            if(Math.abs(ys[j] - mousePoint.getY()) < Const.Drawing.LINE_MARGIN) inY = true;
+        int x = (int)mousePoint.getX();
+        int y = (int)mousePoint.getY();
+
+        int boxX = x - Const.Drawing.LINE_MARGIN / 2;
+        int boxY = y - Const.Drawing.LINE_MARGIN / 2;
+
+        int width = Const.Drawing.LINE_MARGIN;
+        int height = Const.Drawing.LINE_MARGIN;
+
+        for(int j=0;j<i-1;j++){
+            Shape line =  new Line2D.Double(xs[j], ys[j], xs[j+1], ys[j+1]);
+            if(line.intersects(boxX, boxY, width, height))
+                return true;
         }
-        return inX&&inY;
+        return false;
     }
 
     @Override

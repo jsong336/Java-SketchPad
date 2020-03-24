@@ -9,5 +9,7 @@ public enum BoardMode {
     CIRCLE_DRAW,
     SQUARE_DRAW,
     LINE_DRAW,
+    MULTILINES_DRAW,
+    MULTILINES_DRAWING,
     DEFAULT
 }

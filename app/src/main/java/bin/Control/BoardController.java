@@ -2,6 +2,7 @@ package bin.Control;
 
 import bin.Model.*;
 import bin.Model.Drawable.AbstractDrawable;
+import bin.Model.Drawable.MultiLines;
 import bin.View.BoardView;
 import bin.View.PopupMenuView;
 
@@ -78,9 +79,23 @@ public class BoardController {
             case LINE_DRAW:
                 _board.drawLine(mousePoint);
                 break;
+            case MULTILINES_DRAW:
+                _board.initMultiLinesDraw(mousePoint);
+                setMode(BoardMode.MULTILINES_DRAWING);
+                break;
+            case MULTILINES_DRAWING:
+                System.out.println(_board.getSelectedDrawable());
+                if(_board.getSelectedDrawable() instanceof MultiLines){
+                    System.out.println(((MultiLines)_board.getSelectedDrawable()).i);
+                    if(((MultiLines)_board.getSelectedDrawable()).i >= 1){
+                        _board.connectLines(mousePoint);
+                    }
+                }
+                break;
             default:
                 break;
         }
+        _boardView.repaint();
     }
 
     public void rightClickDoneOnBoard(MouseEvent e){
@@ -91,6 +106,7 @@ public class BoardController {
     public void pressOnBoard(Point mousePoint){
         if(_board.getMode() == BoardMode.FREE_HAND)
             _board.initFreeHandDraw(mousePoint);
+        _boardView.repaint();
     }
 
     public void releaseOnBoard(){

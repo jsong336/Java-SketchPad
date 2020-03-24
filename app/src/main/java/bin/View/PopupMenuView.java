@@ -6,43 +6,43 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+
 
 public class PopupMenuView extends JPopupMenu {
     private BoardView _boardView;
-    private boolean _onShape;
 
     public PopupMenuView(BoardView boardView, boolean onShape){
         this._boardView = boardView;
-        this._onShape = onShape;
 
-        JMenuItem pasteMenu = new JMenuItem("Paste");
-        pasteMenu.setActionCommand("Paste");
-        pasteMenu.addActionListener(new PopumMenuActionListener());
+        if(onShape){
+            JMenuItem resizeItem = new JMenuItem("Resize");
+            resizeItem.addActionListener(new PopupMenuActionListener());
 
-        JMenuItem resizeItem = new JMenuItem("Resize");
-        resizeItem.addActionListener(new PopumMenuActionListener());
+            JMenuItem fillItem = new JMenuItem("Fill");
+            fillItem.setActionCommand("Fill");
+            fillItem.addActionListener(new PopupMenuActionListener());
 
-        JMenuItem fillItem = new JMenuItem("Fill");
-        fillItem.setActionCommand("Fill");
-        fillItem.addActionListener(new PopumMenuActionListener());
+            JMenuItem copyItem = new JMenuItem("Copy");
+            copyItem.setActionCommand("Copy");
+            copyItem.addActionListener(new PopupMenuActionListener());
 
-        JMenuItem copyItem = new JMenuItem("Copy");
-        copyItem.setActionCommand("Copy");
-        copyItem.addActionListener(new PopumMenuActionListener());
+            JMenuItem deleteItem = new JMenuItem("Delete");
+            deleteItem.setActionCommand("Delete");
+            deleteItem.addActionListener(new PopupMenuActionListener());
 
-        JMenuItem deleteItem = new JMenuItem("Delete");
-        deleteItem.setActionCommand("Delete");
-        deleteItem.addActionListener(new PopumMenuActionListener());
-
-        add(resizeItem);
-        add(fillItem);
-        add(copyItem);
-        add(deleteItem);
-        add(pasteMenu);
+            add(resizeItem);
+            add(fillItem);
+            add(copyItem);
+            add(deleteItem);
+        }
+        else{
+            JMenuItem pasteMenu = new JMenuItem("Paste");
+            pasteMenu.setActionCommand("Paste");
+            pasteMenu.addActionListener(new PopupMenuActionListener());
+            add(pasteMenu);
+        }
     }
-    class PopumMenuActionListener implements ActionListener{
+    class PopupMenuActionListener implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -71,33 +71,7 @@ public class PopupMenuView extends JPopupMenu {
                 default:
                     break;
             }
-        }
-    }
-
-    class PopupMenuMouseListener implements MouseListener{
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-
+            _boardView.repaint();
         }
     }
 }

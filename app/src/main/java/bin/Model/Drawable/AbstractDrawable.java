@@ -3,10 +3,10 @@ package bin.Model.Drawable;
 import java.awt.*;
 
 public abstract class AbstractDrawable {
-    private Color _borderColor = Color.black;
+    protected Color _borderColor = Color.black;
     private Color _filledColor = Color.white;
     private boolean _isFilled = false;
-    protected boolean _isSelected = false;
+    private boolean _isSelected = false;
 
     protected AbstractDrawable(){}
 
@@ -21,7 +21,7 @@ public abstract class AbstractDrawable {
         _filledColor = fill;
     }
 
-    protected Color getBorder(){
+    protected Color getBorderColor(){
         return _isSelected ? Color.red :  _borderColor;
     }
 
@@ -68,6 +68,10 @@ public abstract class AbstractDrawable {
 
         if(copy instanceof Polygon){
             return new Polygon((Polygon) copy);
+        }
+
+        if(copy instanceof MultiLines){
+            return new MultiLines((MultiLines) copy);
         }
         return null;
     }

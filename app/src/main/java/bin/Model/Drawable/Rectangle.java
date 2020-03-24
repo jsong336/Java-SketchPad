@@ -26,13 +26,14 @@ public class Rectangle extends AbstractDrawable {
 
     @Override
     public void drawInstance(Graphics2D g2) {
+        System.out.println("Drawing on " + this.toString());
         Shape newShape = new Rectangle2D.Double(x, y, w, h);
         Color fill = getFilledColor();
         if(fill!=null){
             g2.setPaint(fill);
             g2.fill(newShape);
         }
-        g2.setColor(getBorder());
+        g2.setColor(getBorderColor());
         g2.draw(newShape);
     }
 

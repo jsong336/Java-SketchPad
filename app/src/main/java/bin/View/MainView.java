@@ -86,6 +86,9 @@ public class MainView extends JFrame {
         MenuItem drawPolygon = new MenuItem("Polygon");
         drawPolygon.setActionCommand("Draw-Polygon");
 
+        MenuItem drawClosedPolygon = new MenuItem("Multiple Lines");
+        drawClosedPolygon.setActionCommand("Draw-Multilines");
+
         //add menu listener
         newMenuItem.addActionListener(_menuListener);
         openMenuItem.addActionListener(_menuListener);
@@ -103,6 +106,7 @@ public class MainView extends JFrame {
         drawCircleItem.addActionListener(_menuListener);
         drawEllipseItem.addActionListener(_menuListener);
         drawPolygon.addActionListener(_menuListener);
+        drawClosedPolygon.addActionListener(_menuListener);
 
         //add menu items to menus
         fileMenu.add(newMenuItem);
@@ -121,6 +125,7 @@ public class MainView extends JFrame {
         drawMenu.add(drawEllipseItem);
         drawMenu.add(drawCircleItem);
         drawMenu.add(drawPolygon);
+        drawMenu.add(drawClosedPolygon);
 
         //add menu to menubar
         menuBar.add(fileMenu);

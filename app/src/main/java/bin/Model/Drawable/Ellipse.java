@@ -31,7 +31,7 @@ public class Ellipse extends AbstractDrawable {
             g2.setPaint(fill);
             g2.fill(newShape);
         }
-        g2.setColor(getBorder());
+        g2.setColor(getBorderColor());
         g2.draw(newShape);
     }
 

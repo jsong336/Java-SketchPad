@@ -9,18 +9,11 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Board {
-    private static Board _singleton = null;
-
     private BoardMode _mode = BoardMode.DEFAULT;
     private ArrayList<AbstractDrawable> _onScreen = new ArrayList<>();
     private AbstractDrawable _selectedDrawable = null;
 
-    public Board(){
-        if(_singleton == null)
-            _singleton = this;
-        else
-            throw new Error("Duplicated instance of Board");
-    }
+    public Board(){}
 
     public BoardMode getMode () { return _mode; }
     public ArrayList<AbstractDrawable> getOnScreen() { return _onScreen; }
@@ -30,7 +23,7 @@ public class Board {
         this._mode = _mode;
     }
 
-    public void setSelectedDrawable(AbstractDrawable drawable) {
+    private void setSelectedDrawable(AbstractDrawable drawable) {
         boolean inBoard = false;
 
         // Check if the object is in board
@@ -51,7 +44,7 @@ public class Board {
         this._selectedDrawable = drawable;
     }
 
-    public void unSelectAll(){
+    private void unSelectAll(){
         for(AbstractDrawable obj: _onScreen)
             obj.unSelectThis();
         _selectedDrawable = null;
@@ -70,16 +63,24 @@ public class Board {
     }
 
     public void initFreeHandDraw(Point startPoint){
-        System.out.println(startPoint.toString());
         setMode(BoardMode.FREE_HAND);
         FreeHand fh = new FreeHand(startPoint);
         _onScreen.add(fh);
         setSelectedDrawable(fh);
     }
 
+    public void initMultiLinesDraw(Point startPoint){
+        setMode(BoardMode.MULTILINES_DRAW);
+        MultiLines ml = new MultiLines(startPoint);
+        _onScreen.add(ml);
+        setSelectedDrawable(ml);
+    }
+
     public void drawFreeHand(Point mousePoint){
         ((FreeHand)_selectedDrawable).drawPoint(mousePoint);
     }
+
+    public void connectLines(Point mousePoint) { ((MultiLines)_selectedDrawable).drawPoint(mousePoint);}
 
 
     public void drawLine(Point mousePoint){

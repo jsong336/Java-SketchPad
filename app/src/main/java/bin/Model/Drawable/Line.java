@@ -4,7 +4,6 @@ import bin.Const;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
-import java.awt.geom.Rectangle2D;
 
 public class Line extends AbstractDrawable{
     public int x1, x2, y1, y2;
@@ -12,8 +11,8 @@ public class Line extends AbstractDrawable{
     public Line(Point start,  Point end){
         super();
         this.x1 = (int)start.getX();
-        this.x2 = (int)start.getY();
-        this.y1 = (int)end.getX();
+        this.y1 = (int)start.getY();
+        this.x1 = (int)end.getX();
         this.y2 = (int)end.getY();
     }
 
@@ -33,9 +32,8 @@ public class Line extends AbstractDrawable{
             g2.setPaint(fill);
             g2.fill(newShape);
         }
-        if(_isSelected){
-            g2.setColor(Color.red);
-        }
+
+        g2.setColor(getBorderColor());
         g2.draw(newShape);
     }
 
@@ -61,6 +59,12 @@ public class Line extends AbstractDrawable{
         x1 = (int)mousePoint.getX();
         y2 += mousePoint.getY() - y1;
         y1 = (int)mousePoint.getY();
+    }
+
+    @Override
+    public void fill(Color fill){
+        super.fill(fill);
+        _borderColor = fill;
     }
 
     @Override
