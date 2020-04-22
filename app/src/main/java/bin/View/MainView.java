@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileFilter;
 
 public class MainView extends JFrame {
     public BoardView _boardView;
@@ -149,12 +150,12 @@ public class MainView extends JFrame {
         setJMenuBar(menuBar);
     }
 
-    private void setMenuBar(JMenuBar menuBar) {
-    }
+//    private void setMenuBar(JMenuBar menuBar) {}
 
     public String getPath(){
         JFileChooser pathGetter = new JFileChooser();
         pathGetter.setDialogTitle("Select your drawing file");
+        pathGetter.setFileFilter(new SKPFileFilter());
         int userSelection = pathGetter.showOpenDialog(this);
         if(userSelection == JFileChooser.APPROVE_OPTION){
             return pathGetter.getSelectedFile().getAbsolutePath();
@@ -163,15 +164,35 @@ public class MainView extends JFrame {
             return "..";
         }
     }
+
     public String createPath(){
         JFileChooser pathCreator = new JFileChooser();
         pathCreator.setDialogTitle("Save your drawing file");
+        pathCreator.setFileFilter(new SKPFileFilter());
         int userSelection = pathCreator.showSaveDialog(this);
         if(userSelection == JFileChooser.APPROVE_OPTION){
             return pathCreator.getSelectedFile().getAbsolutePath();
         }
         else{
             return "..";
+        }
+    }
+
+    static class SKPFileFilter extends javax.swing.filechooser.FileFilter implements FileFilter {
+
+        @Override
+        public boolean accept(File pathname) {
+            if (pathname.isDirectory()) {
+                return true;
+            } else {
+                String filename = pathname.getName().toLowerCase();
+                return filename.endsWith(".skp") || filename.endsWith(".txt") ;
+            }
+        }
+
+        @Override
+        public String getDescription() {
+            return "Sketch Pad File (.skp)";
         }
     }
 
