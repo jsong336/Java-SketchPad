@@ -55,7 +55,7 @@ public class BoardView extends JPanel {
         @Override
         public void keyPressed(KeyEvent e) {
             if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
-                boardController.setMode(BoardMode.DEFAULT);
+                boardController.setBoardMode(BoardMode.DEFAULT);
             if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_C)
                 boardController.copy();
             if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_V)

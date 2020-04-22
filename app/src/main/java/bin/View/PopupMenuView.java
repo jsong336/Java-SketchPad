@@ -49,7 +49,7 @@ public class PopupMenuView extends JPopupMenu {
             System.out.println(e.getActionCommand());
             switch (e.getActionCommand()){
                 case "Resize":
-                    _boardView.boardController.setMode(BoardMode.RESIZE);
+                    _boardView.boardController.setBoardMode(BoardMode.RESIZE);
                     break;
 
                 case "Copy":

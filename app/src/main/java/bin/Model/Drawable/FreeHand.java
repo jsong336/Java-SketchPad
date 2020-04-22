@@ -69,6 +69,6 @@ public class FreeHand extends AbstractDrawable {
 
     @Override
     public void resize(Point mousePoint) {
-        // TODO
+        // TODO: current version does not support free hand resize
     }
 }

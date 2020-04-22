@@ -3,41 +3,56 @@ package bin.Control;
 import bin.Model.BoardMode;
 import bin.View.MainView;
 
+/*
+ * creation of this object will initiate the view, and associated controller
+ * MainController object will call initiate different handlers if any menu events occurs
+ */
 public class MainController {
+    /* delegate board controller*/
     public BoardController boardController;
 
     public MainController(){
+        /* main controller will automatically create its associates */
         boardController = new BoardController();
-        MainView mainView = new MainView(this);
-        boardController.registerView(mainView.getBoardView());
+        boardController.registerView(new MainView(this).getBoardView()); // register board
    }
 
+   /* ************************************************************************
+    * called when event occurs from main menu
+    * ************************************************************************/
     public void setDrawMode(String cmd){
+        /* Draw Menu events */
         switch (cmd){
             case "Line":
-                boardController.setMode(BoardMode.LINE_DRAW);
+                boardController.setBoardMode(BoardMode.LINE_DRAW);
                 break;
+
             case "Freehand":
-                boardController.setMode(BoardMode.FREE_HAND);
+                boardController.setBoardMode(BoardMode.FREE_HAND);
                 break;
+
             case "Rectangle":
-                boardController.setMode(BoardMode.RECTANGLE_DRAW);
+                boardController.setBoardMode(BoardMode.RECTANGLE_DRAW);
                 break;
+
             case "Ellipse":
-                boardController.setMode(BoardMode.ELLIPSE_DRAW);
+                boardController.setBoardMode(BoardMode.ELLIPSE_DRAW);
                 break;
+
             case "Square":
-                boardController.setMode(BoardMode.SQUARE_DRAW);
+                boardController.setBoardMode(BoardMode.SQUARE_DRAW);
                 break;
+
             case "Polygon":
-                boardController.setMode(BoardMode.POLY_DRAW);
+                boardController.setBoardMode(BoardMode.POLY_DRAW);
                 break;
+
             case "Circle":
-                boardController.setMode(BoardMode.CIRCLE_DRAW);
+                boardController.setBoardMode(BoardMode.CIRCLE_DRAW);
                 break;
 
             case "Multilines":
-                boardController.setMode(BoardMode.MULTILINES_DRAW);
+                boardController.setBoardMode(BoardMode.MULTILINES_DRAW); // no break
 
             default:
                 break;
@@ -45,6 +60,7 @@ public class MainController {
     }
 
     public void edit(String cmd){
+        /* Edit Menu events */
         switch (cmd){
             case "Copy":
                 boardController.copy();
@@ -65,13 +81,14 @@ public class MainController {
     }
 
     public void fileControl(String cmd){
+        /* File Menu events */
         switch (cmd){
             case "Open":
-                break;
             case "Save":
+                // unimplemented
                 break;
             case "Exit":
-                System.exit(0);
+                System.exit(0); // system terminates
                 break;
             default:
                 break;

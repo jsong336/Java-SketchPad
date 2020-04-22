@@ -8,6 +8,9 @@ import bin.Model.Drawable.Rectangle;
 import java.awt.*;
 import java.util.ArrayList;
 
+/*
+* This is Board Model class. It contains board logic
+* */
 public class Board {
     private BoardMode _mode = BoardMode.DEFAULT;
     private ArrayList<AbstractDrawable> _onScreen = new ArrayList<>();
@@ -111,5 +114,6 @@ public class Board {
 
     public void drawPolygon(Point mousePoint, int n){
         _onScreen.add(new Polygon(mousePoint, n));
+        setMode(BoardMode.DEFAULT);
     }
 }
