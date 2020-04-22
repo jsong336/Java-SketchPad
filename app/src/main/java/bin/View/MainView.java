@@ -146,6 +146,16 @@ public class MainView extends JFrame {
         menuBar.add(editMenu);
         menuBar.add(drawMenu);
 
+//        JButton undo = new JButton("Undo");
+//        undo.setActionCommand("Edit-Undo");
+//        undo.addActionListener(_menuListener);
+//
+//        JButton redo = new JButton("Redo");
+//        redo.setActionCommand("Edit-Redo");
+//        redo.addActionListener(_menuListener);
+//
+//        menuBar.add(redo);
+//        menuBar.add(undo);
         //add menubar to the frame
         setJMenuBar(menuBar);
     }
