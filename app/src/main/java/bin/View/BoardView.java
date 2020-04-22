@@ -130,7 +130,9 @@ public class BoardView extends JPanel {
         }
 
         @Override
-        public void mouseMoved(MouseEvent e) { }
+        public void mouseMoved(MouseEvent e) {
+            repaint();
+        }
     }
 }
 
