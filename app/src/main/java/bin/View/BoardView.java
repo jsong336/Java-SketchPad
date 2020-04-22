@@ -45,6 +45,26 @@ public class BoardView extends JPanel {
 
         for (AbstractDrawable obj : boardController.getOnScreen())
             obj.drawInstance(g2);
+
+        switch (boardController.getBoardMode()){
+            case DEFAULT:
+                setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                break;
+            case RECTANGLE_DRAW:
+            case ELLIPSE_DRAW:
+            case POLY_DRAW:
+            case CIRCLE_DRAW:
+            case SQUARE_DRAW:
+            case LINE_DRAW:
+            case MULTILINES_DRAW:
+            case MULTILINES_DRAWING:
+            case FREE_HAND:
+                setCursor(new Cursor(Cursor.HAND_CURSOR));
+                break;
+            case RESIZE:
+                setCursor(new Cursor(Cursor.E_RESIZE_CURSOR));
+                break;
+        }
     }
 
     class BoardKeyListener implements KeyListener {
