@@ -52,4 +52,17 @@ public class Ellipse extends AbstractDrawable {
         a = (int)mousePoint.getX();
         b = (int)mousePoint.getY();
     }
+    @Override
+    public String toString() {
+        return "Ellipse{" +
+                "_borderColor=" + _borderColor +
+                ", _filledColor=" + _filledColor +
+                ", _isFilled=" + _isFilled +
+                ", _isSelected=" + _isSelected +
+                ", a=" + a +
+                ", b=" + b +
+                ", x=" + centerX +
+                ", y=" + centerY +
+                '}';
+    }
 }

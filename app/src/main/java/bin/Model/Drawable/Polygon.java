@@ -3,6 +3,7 @@ package bin.Model.Drawable;
 import bin.Const;
 
 import java.awt.*;
+import java.util.Arrays;
 
 public class Polygon extends AbstractDrawable{
     int n, centerX, centerY, radius;
@@ -65,5 +66,21 @@ public class Polygon extends AbstractDrawable{
         double x = mousePoint.getX();
         double y = mousePoint.getY();
         radius = (int)Math.sqrt(x*x + y*y);
+    }
+
+    @Override
+    public String toString() {
+        return "Polygon{" +
+                "n=" + n +
+                ", centerX=" + centerX +
+                ", centerY=" + centerY +
+                ", radius=" + radius +
+                ", pointXs=" + Arrays.toString(pointXs) +
+                ", pointYs=" + Arrays.toString(pointYs) +
+                ", _borderColor=" + _borderColor +
+                ", _filledColor=" + _filledColor +
+                ", _isFilled=" + _isFilled +
+                ", _isSelected=" + _isSelected +
+                '}';
     }
 }

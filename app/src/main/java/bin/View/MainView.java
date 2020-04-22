@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class MainView extends JFrame {
     public BoardView _boardView;
@@ -149,6 +150,29 @@ public class MainView extends JFrame {
     }
 
     private void setMenuBar(JMenuBar menuBar) {
+    }
+
+    public String getPath(){
+        JFileChooser pathGetter = new JFileChooser();
+        pathGetter.setDialogTitle("Select your drawing file");
+        int userSelection = pathGetter.showOpenDialog(this);
+        if(userSelection == JFileChooser.APPROVE_OPTION){
+            return pathGetter.getSelectedFile().getAbsolutePath();
+        }
+        else{
+            return "..";
+        }
+    }
+    public String createPath(){
+        JFileChooser pathCreator = new JFileChooser();
+        pathCreator.setDialogTitle("Save your drawing file");
+        int userSelection = pathCreator.showSaveDialog(this);
+        if(userSelection == JFileChooser.APPROVE_OPTION){
+            return pathCreator.getSelectedFile().getAbsolutePath();
+        }
+        else{
+            return "..";
+        }
     }
 
     class MainMenuListener implements ActionListener {

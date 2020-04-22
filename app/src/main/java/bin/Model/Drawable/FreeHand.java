@@ -3,6 +3,7 @@ package bin.Model.Drawable;
 import bin.Const;
 
 import java.awt.*;
+import java.util.Arrays;
 
 public class FreeHand extends AbstractDrawable {
     public int[] xs = new int[1000];
@@ -70,5 +71,18 @@ public class FreeHand extends AbstractDrawable {
     @Override
     public void resize(Point mousePoint) {
         // TODO: current version does not support free hand resize
+    }
+
+    @Override
+    public String toString() {
+        return "FreeHand{" +
+                "xs=" + Arrays.toString(xs) +
+                ", ys=" + Arrays.toString(ys) +
+                ", i=" + i +
+                ", _borderColor=" + _borderColor +
+                ", _filledColor=" + _filledColor +
+                ", _isFilled=" + _isFilled +
+                ", _isSelected=" + _isSelected +
+                '}';
     }
 }

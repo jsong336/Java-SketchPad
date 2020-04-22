@@ -54,4 +54,18 @@ public class Rectangle extends AbstractDrawable {
         w = (int)mousePoint.getX();
         h = (int)mousePoint.getY();
     }
+
+    @Override
+    public String toString() {
+        return "Rectangle{" +
+                "x=" + x +
+                ", y=" + y +
+                ", w=" + w +
+                ", h=" + h +
+                ", _borderColor=" + _borderColor +
+                ", _filledColor=" + _filledColor +
+                ", _isFilled=" + _isFilled +
+                ", _isSelected=" + _isSelected +
+                '}';
+    }
 }

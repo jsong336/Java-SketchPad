@@ -72,4 +72,18 @@ public class Line extends AbstractDrawable{
         x2 = (int)mousePoint.getX();
         y2 = (int)mousePoint.getY();
     }
+
+    @Override
+    public String toString() {
+        return "Line{" +
+                "x1=" + x1 +
+                ", x2=" + x2 +
+                ", y1=" + y1 +
+                ", y2=" + y2 +
+                ", _borderColor=" + _borderColor +
+                ", _filledColor=" + _filledColor +
+                ", _isFilled=" + _isFilled +
+                ", _isSelected=" + _isSelected +
+                '}';
+    }
 }

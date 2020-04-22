@@ -1,12 +1,13 @@
 package bin.Model.Drawable;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public abstract class AbstractDrawable {
+public abstract class AbstractDrawable implements Serializable {
     protected Color _borderColor = Color.black;
-    private Color _filledColor = Color.white;
-    private boolean _isFilled = false;
-    private boolean _isSelected = false;
+    protected Color _filledColor = Color.white;
+    protected boolean _isFilled = false;
+    protected boolean _isSelected = false;
 
     protected AbstractDrawable(){}
 
@@ -74,5 +75,15 @@ public abstract class AbstractDrawable {
             return new MultiLines((MultiLines) copy);
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "AbstractDrawable{" +
+                "_borderColor=" + _borderColor +
+                ", _filledColor=" + _filledColor +
+                ", _isFilled=" + _isFilled +
+                ", _isSelected=" + _isSelected +
+                '}';
     }
 }

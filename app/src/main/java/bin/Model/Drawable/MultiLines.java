@@ -4,6 +4,7 @@ import bin.Const;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
+import java.util.Arrays;
 
 public class MultiLines extends AbstractDrawable{
     public int[] xs = new int[1000];
@@ -81,5 +82,18 @@ public class MultiLines extends AbstractDrawable{
     @Override
     public void resize(Point mousePoint) {
         // TODO
+    }
+
+    @Override
+    public String toString() {
+        return "MultiLines{" +
+                "xs=" + Arrays.toString(xs) +
+                ", ys=" + Arrays.toString(ys) +
+                ", i=" + i +
+                ", _borderColor=" + _borderColor +
+                ", _filledColor=" + _filledColor +
+                ", _isFilled=" + _isFilled +
+                ", _isSelected=" + _isSelected +
+                '}';
     }
 }

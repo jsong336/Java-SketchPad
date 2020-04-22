@@ -3,6 +3,8 @@ package bin.Control;
 import bin.Model.BoardMode;
 import bin.View.MainView;
 
+import java.io.IOException;
+
 /*
  * creation of this object will initiate the view, and associated controller
  * MainController object will call initiate different handlers if any menu events occurs
@@ -10,11 +12,15 @@ import bin.View.MainView;
 public class MainController {
     /* delegate board controller*/
     public BoardController boardController;
+    public FileController fileController;
+    public MainView mainView;
 
     public MainController(){
         /* main controller will automatically create its associates */
         boardController = new BoardController();
-        boardController.registerView(new MainView(this).getBoardView()); // register board
+        mainView = new MainView(this);
+        boardController.registerView(mainView.getBoardView()); // register board
+        fileController = new FileController();
    }
 
    /* ************************************************************************
@@ -84,7 +90,21 @@ public class MainController {
         /* File Menu events */
         switch (cmd){
             case "Open":
+                try{
+                    boardController.reset(fileController.load(mainView.getPath()));
+                }
+                catch (Exception e){
+                    System.out.println(e);
+                }
+                break;
+
             case "Save":
+                try{
+                    fileController.save(mainView.createPath(), boardController.getOnScreen());
+                }
+                catch (IOException e){
+                    System.out.println(e);
+                }
                 // unimplemented
                 break;
             case "Exit":

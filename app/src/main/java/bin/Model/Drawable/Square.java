@@ -19,4 +19,17 @@ public class Square extends Rectangle{
         w = (int)Math.sqrt(x*x + y*y);
         h = w;
     }
+    @Override
+    public String toString() {
+        return "Square{" +
+                "x=" + x +
+                ", y=" + y +
+                ", w=" + w +
+                ", h=" + h +
+                ", _borderColor=" + _borderColor +
+                ", _filledColor=" + _filledColor +
+                ", _isFilled=" + _isFilled +
+                ", _isSelected=" + _isSelected +
+                '}';
+    }
 }

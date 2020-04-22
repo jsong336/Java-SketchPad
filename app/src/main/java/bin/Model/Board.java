@@ -17,6 +17,9 @@ public class Board {
     private AbstractDrawable _selectedDrawable = null;
 
     public Board(){}
+    public Board(java.util.List<AbstractDrawable> onScreen){
+        _onScreen = (ArrayList<AbstractDrawable>) onScreen;
+    }
 
     public BoardMode getMode () { return _mode; }
     public ArrayList<AbstractDrawable> getOnScreen() { return _onScreen; }

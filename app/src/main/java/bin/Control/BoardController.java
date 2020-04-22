@@ -33,6 +33,13 @@ public class BoardController {
         return _board.getOnScreen();
     }
 
+    public void reset(java.util.List<AbstractDrawable> onScreen){
+        /* clear out the board and create new board with onScreen */
+        _lastCopied = null;
+        _board = new Board(onScreen);
+        _boardView.repaint();
+    }
+
     public void setBoardMode(BoardMode mode){
         /*
         * set BoardMode of the board
