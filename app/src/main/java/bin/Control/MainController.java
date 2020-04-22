@@ -81,6 +81,14 @@ public class MainController {
                 boardController.remove();
                 break;
 
+            case "Redo":
+                boardController.redo();
+                break;
+
+            case "Undo":
+                boardController.undo();
+                break;
+
             default:
                 break;
         }

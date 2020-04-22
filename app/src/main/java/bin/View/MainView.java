@@ -60,6 +60,12 @@ public class MainView extends JFrame {
         JMenu editMenu = new JMenu("Edit");
         JMenu drawMenu = new JMenu("Draw");
 
+        //create redo/undo
+        JButton redo = new JButton("Redo");
+        redo.setActionCommand("Edit-Redo");
+        JButton undo = new JButton("Undo");
+        undo.setActionCommand("Edit-Undo");
+
         //create fileMenu items
         JMenuItem openMenuItem = new JMenuItem("Open");
         openMenuItem.setActionCommand("File-Open");
@@ -106,6 +112,9 @@ public class MainView extends JFrame {
         drawClosedPolygon.setActionCommand("Draw-Multilines");
 
         //add menu listener
+        redo.addActionListener(_menuListener);
+        undo.addActionListener(_menuListener);
+
         openMenuItem.addActionListener(_menuListener);
         saveMenuItem.addActionListener(_menuListener);
         exitMenuItem.addActionListener(_menuListener);
@@ -145,6 +154,9 @@ public class MainView extends JFrame {
         menuBar.add(fileMenu);
         menuBar.add(editMenu);
         menuBar.add(drawMenu);
+
+        menuBar.add(redo);
+        menuBar.add(undo);
 
         //add menubar to the frame
         setJMenuBar(menuBar);

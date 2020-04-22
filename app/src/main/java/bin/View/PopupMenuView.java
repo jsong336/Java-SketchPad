@@ -46,7 +46,6 @@ public class PopupMenuView extends JPopupMenu {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println(e.getActionCommand());
             switch (e.getActionCommand()){
                 case "Resize":
                     _boardView.boardController.setBoardMode(BoardMode.RESIZE);
