@@ -23,7 +23,6 @@ public class BoardController {
         /* create a board object */
         _board = new Board();
         _mementoCareTaker = new BoardMementoCareTaker(_board);
-//        _redoCareTaker = new BoardMementoCareTaker(_board);
     }
 
     public void registerView(BoardView view){
@@ -56,7 +55,6 @@ public class BoardController {
          */
         if(_board.getMode()==BoardMode.MULTILINES_DRAWING && mode == BoardMode.DEFAULT){
             _board.unSelectAll(); // TODO: check if this is appropriate place to put this logic
-            _mementoCareTaker.screenShot();
         }
         _board.setMode(mode);
     }
@@ -73,20 +71,21 @@ public class BoardController {
     public void paste(){
         if(_lastCopied != null){
             /* add _lastCopied object to the board */
+            _mementoCareTaker.screenShot();
             _board.getOnScreen().add(_lastCopied);
             _lastCopied = AbstractDrawable.copyAsChild(_lastCopied); // _lastCopied is updated to most recently copied object - user expectation when copy paste multiple times
             return;
         }
         _board.unSelectAll();
         _boardView.repaint();
-        _mementoCareTaker.screenShot();
     }
 
     public void remove(){
         /* remove selected object and repaint */
+        if(_board.getSelectedDrawable()!=null)
+            _mementoCareTaker.screenShot();
         _board.getOnScreen().remove(_board.getSelectedDrawable());
         _boardView.repaint();
-        _mementoCareTaker.screenShot();
     }
 
     public void fill(Color color){
@@ -95,16 +94,18 @@ public class BoardController {
          * @param  color the selected color
          * @return
          */
+        if(_board.getSelectedDrawable()!=null)
+            _mementoCareTaker.screenShot();
         _board.getSelectedDrawable().fill(color); /* update only selected object */
         _boardView.repaint();
-        _mementoCareTaker.screenShot();
     }
 
     public void redo(){
         System.out.println("Redo Pressed");
-//        if(_redoCareTaker != null)
-//            _board = _redoCareTaker.restoreTop();
-//        _boardView.repaint();
+        Board memento = _mementoCareTaker.goBack();
+        if(memento != null)
+            _board = memento;
+        _boardView.repaint();
     }
 
     public void undo(){
@@ -131,28 +132,28 @@ public class BoardController {
                 break;
 
             case LINE_DRAW:
-                _board.drawLine(mousePoint);
                 _mementoCareTaker.screenShot();
+                _board.drawLine(mousePoint);
                 break;
 
             case RECTANGLE_DRAW:
-                _board.drawRectangle(mousePoint);
                 _mementoCareTaker.screenShot();
+                _board.drawRectangle(mousePoint);
                 break;
 
             case SQUARE_DRAW:
-                _board.drawSquare(mousePoint);
                 _mementoCareTaker.screenShot();
+                _board.drawSquare(mousePoint);
                 break;
 
             case ELLIPSE_DRAW:
-                _board.drawEllipse(mousePoint);
                 _mementoCareTaker.screenShot();
+                _board.drawEllipse(mousePoint);
                 break;
 
             case CIRCLE_DRAW:
-                _board.drawCircle(mousePoint);
                 _mementoCareTaker.screenShot();
+                _board.drawCircle(mousePoint);
                 break;
 
             case POLY_DRAW:
@@ -160,8 +161,8 @@ public class BoardController {
                 int n = _boardView.promptPolyN();
                 if(n > 1){
                     // if n is within range, create polygon
-                    _board.drawPolygon(mousePoint, n);
                     _mementoCareTaker.screenShot();
+                    _board.drawPolygon(mousePoint, n);
                 }
                 // setBoardMode(BoardMode.DEFAULT);
                 break;
@@ -217,14 +218,12 @@ public class BoardController {
                 /* if mouse was released while resizing, then resizing is done and returned to default */
                 _board.setMode(BoardMode.DEFAULT);
                 _board.unSelectAll();
-                _mementoCareTaker.screenShot();
                 break;
 
             case FREE_HAND:
                 /* if mouse was released while drawing free hand, then the finish that stroke but next dragging will still draw free hand */
                 //_board.setMode(BoardMode.DEFAULT);
                 _board.unSelectAll();
-                _mementoCareTaker.screenShot();
                 break;
 
             default:

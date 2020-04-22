@@ -84,8 +84,8 @@ public class BoardView extends JPanel {
                 boardController.remove();
             if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_Z)
                 boardController.undo();
-            if(e.isShiftDown() && e.isControlDown() && e.getKeyCode() == KeyEvent.VK_V)
-                boardController.paste();
+            if(e.isControlDown() && e.getKeyCode() == KeyEvent.VK_P)
+                boardController.redo();
             repaint();
         }
 
